@@ -1,0 +1,174 @@
+<html>
+    <head>  
+     <link rel="stylesheet" href="bootstrap.css">
+     <script src="angular.js"></script>
+     <script src="jquery-3.2.1.js"></script>
+     <script src="firebase.js"></script>
+     <script src="angularfire.js"></script>
+     <script src="app.js"></script>
+    <title>Pokemon:The Game</title>
+<link rel="stylesheet" href="animate.css">    
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBrsbFHq7QLY4RL3B5lK9xn5Xv6kwmi1WA",
+    authDomain: "pikachu-c5547.firebaseapp.com",
+    databaseURL: "https://pikachu-c5547.firebaseio.com",
+    projectId: "pikachu-c5547",
+    storageBucket: "pikachu-c5547.appspot.com",
+    messagingSenderId: "1082197266115"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+ <style>
+        
+body{         margin-left: 0px;
+         margin-right: 0px;
+          background-image:url(back.jpg);
+         background-repeat: no-repeat;
+         background-size: cover;
+       
+            }
+            .gd{
+                           
+    border: 10px solid white;
+    border-bottom-width: 0px 0px 0px 0px;
+    height: 350px;
+
+            }
+        .good{
+               background-image: url("pika.jpg");
+               background-repeat: no-repeat;
+               background-size: contain;
+               background-position: center;
+                 height:350px;
+                                      }
+         .wrong{
+              background-image: url("jio.jpg");
+               background-repeat: no-repeat;
+                background-position: center;
+               background-size: contain;
+               height: 350px;
+         }
+
+
+     </style>
+    </head>
+    <body ng-app="animate">
+        
+<ng-view>    
+  
+<div ng-controller="Animate as ani">
+ 
+ <nav class="nav navbar-center navbar-inverse">
+<button type="button" class=" btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Rules & Instructions</button>
+<button class="btn  btn-lg btn-info" ng-click="ani.call()">Start</button>
+<button class="btn btn-lg btn-warning">Time: {{ani.c}}</button>
+<!-- Trigger the modal with a button -->
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="document">
+  <div class="modal-document" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" align="center">Rules $ Instructions</h4>
+      </div>
+      <div class="modal-body">
+          <br>
+          <h1>
+Pikachu require your help. Save them by picking the right ones. There are some good characters and the bad ones. <br>
+Remember that:
+</h1>
+<br>
+1. Pikachu can be appear at random places for 45 seconds.
+<br>
+2. At the same time bad guy (giovanni) will also appear.
+<br>
+3. There are 5 levels in this game.
+<br>
+4. You have to click Pikachu Grid to save it.
+<br>
+5. One correct click means +1 points
+<br>
+6. Consecutive 3 correct means +5 bonus also.
+<br>
+7. Wrong answer will rewards -3 points.
+<br>
+8. Going to negative score will mean "Game Over"
+<br>
+9.  A total of 30 points mean Level Complete.
+<br>
+10. With every increasing level Pikachu and other will appear for lesser time.  
+<br>
+Best of Luck!!
+      </div>
+      <div class="modal-footer">
+          <div align="center"> 
+        <button type="button" class="btn  btn-lg btn-info" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+</div>        
+ 
+            
+
+
+
+
+                <div class="nav navbar-right">
+                  
+                    <button class="btn  btn-lg btn-default">Your Score:{{ani.score}}</button>
+                    <button class="btn  btn-lg btn-success">Highest Score:<div ng-repeat="ani in ani.hscore" >{{ani.$value}}</button>
+                </div>
+</nav>
+
+ 
+<div align="center" class=" animated infinite rubberband" style="color: white"><h1><b>You are at Level:{{ani.level}}</b> </h1> </div>
+<div ng-if="ani.f==1" class=" animated infinte rubberband" align="center" style="color:cyan"> <h1><b>Refresh the page to start the game again</b></h1></div>     
+<div class="row">         
+<a><div id="#1" class="col-sm-3  gd"  ng-class="{'good':ani.r==1,'wrong':ani.wrong==1}" ng-click="ani.check('1')"></div></a>
+<a ><div id="#2" class="col-sm-3 gd"  ng-class="{'good':ani.r==2,'wrong':ani.wrong==2}" ng-click="ani.check('2')"></div></a>
+<a ><div id="#3" class="col-sm-3 gd"  ng-class="{'good':ani.r==3,'wrong':ani.wrong==3}" ng-click="ani.check('3')"></div></a>
+<a><div id="#4" class="col-sm-3 gd"  ng-class="{'good':ani.r==4,'wrong':ani.wrong==4}" ng-click="ani.check('4')"></div></a>
+</div>
+<div class="row">
+<a><div id="#5" class="col-sm-3  gd"  ng-class="{'good':ani.r==5,'wrong':ani.wrong==5}" ng-click="ani.check('5')"></div></a>
+<a ><div id="#6" class="col-sm-3 gd" ng-class="{'good':ani.r==6,'wrong':ani.wrong==6}" ng-click="ani.check('6')"></div></a>
+<a ><div id="#7" class="col-sm-3  gd" ng-class="{'good':ani.r==7,'wrong':ani.wrong==7}" ng-click="ani.check('7')"></div></a>
+<a ><div id="#8" class="col-sm-3  gd" ng-class="{'good':ani.r==8,'wrong':ani.wrong==8}" ng-click="ani.check('8')"></div></a>
+</div>
+<div class="row">
+<a ><div id="#9" class="col-sm-3  gd"  ng-class="{'good':ani.r==9,'wrong':ani.wrong==9}" ng-click="ani.check('9')"></div></a>
+<a><div id="#10" class="col-sm-3  gd"  ng-class="{'good':ani.r==10,'wrong':ani.wrong==10}" ng-click="ani.check('10')"></div></a>
+<a><div id="#11" class="col-sm-3  gd" ng-class="{'good':ani.r==11,'wrong':ani.wrong==11}" ng-click="ani.check('11')"></div></a>
+<a><div id="#12" class="col-sm-3  gd" ng-class="{'good':ani.r==12,'wrong':ani.wrong==12}" ng-click="ani.check('12')"></div></a>
+</div>
+<div class="row">
+<a><div id="#13" class="col-sm-3  gd" ng-class="{'good':ani.r==13,'wrong':ani.wrong==13}" ng-click="ani.check('13')"></div></a>
+<a><div id="#14" class="col-sm-3  gd"  ng-class="{'good':ani.r==14,'wrong':ani.wrong==14}" ng-click="ani.check('14')"></div></a>
+<a><div id="#15" class="col-sm-3  gd"  ng-class="{'good':ani.r==15,'wrong':ani.wrong==15}" ng-click="ani.check('15')"></div></a>
+<a><div id="#16" class="col-sm-3 gd"  ng-class="{'good':ani.r==16,'wrong':ani.wrong==16}" ng-click="ani.check('16')"></div></a>        
+</ng-view>
+</body>
+</html>
